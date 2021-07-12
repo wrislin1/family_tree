@@ -19,7 +19,11 @@
                     </select>
                     <br/>
                     <label for="relation">Relation:</label><br/>
-                    <textarea class="form-control" id="relation" v-model="form.relation" ></textarea><br/>
+                    <select class="form-control" id="relation" v-model="form.relation" >
+                        <option value="parent">Parent</option>
+                        <option value="sibling">Sibling</option>
+                        <option value="child">Child</option>
+                    </select><br/>
                     <label for="information">Information:</label><br/>
                     <textarea class="form-control" id="information" v-model="form.information" ></textarea><br/>
                     <button class="btn btn-primary" type="submit">Submit</button><br/>
@@ -41,17 +45,11 @@ export default {
     props: ['users'],
     data(){
         return {
-            users_a: [...this.users],
-            users_b: [...this.users],
+            users_a: this.users,
+            users_b: this.users,
         }
     },
     mounted() {
-        console.log('User');
-        console.log(this.users.length);
-        console.log('User a');
-        console.log(this.users_a);
-        console.log('User b');
-        console.log(this.users_b);
     },
     setup () {
         const form = reactive({
@@ -62,7 +60,7 @@ export default {
         })
 
         function submit() {
-            Inertia.post('/create', form,{onSuccess: (response) => {console.log(response)}});
+            Inertia.post('/create', form);
         }
 
         return { form, submit }
@@ -71,12 +69,8 @@ export default {
         userSelected(event){
             let value = JSON.parse(event.target.value);
             let temp = [...this.users];
-            console.log(value.index);
-            console.log(this.users_a);
-            console.log(this.users_a[0]);
             temp.splice(value.index,1);
             this.users_b = [...temp];
-            console.log(this.users_b);
         }
     }
 }

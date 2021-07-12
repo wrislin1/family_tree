@@ -17,7 +17,8 @@ class RelationsController extends Controller
      */
     public function index(){
         $users = User::all();
-        return Inertia::render('Dashboard',['users'=>$users->values()]);
+        $relations = Relations::all();
+        return Inertia::render('Dashboard',['users'=>$users,'relations'=>$relations]);
     }
 
     /**
@@ -28,7 +29,7 @@ class RelationsController extends Controller
     public function create(): \Inertia\Response
     {
         $users = User::all();
-        return Inertia::render('Relations/create',['users'=>$users->values()]);
+        return Inertia::render('Relations/create',['users'=>$users]);
     }
 
     /**

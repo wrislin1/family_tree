@@ -28,6 +28,7 @@
             Welcome,
             VueFamilyTree,
         },
+        props:['users','relations'],
         data () {
             return {
                 tree: [{
@@ -102,7 +103,13 @@
                         }]
                 }],
                 count:0,
+                usersList: this.users,
+                relationsList: this.relations,
             }
+        },
+        mounted() {
+            console.log('RelationsList');
+            console.log(this.relationsList);
         },
         methods: {
             cardClick (item) {
